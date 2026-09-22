@@ -74,7 +74,7 @@ footer{border-top:1px solid var(--line);padding:42px 0 22px;background:#06080d}.
 <script>
 let type='Image';
 function setType(t,b){type=t;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
-function generate(){let r=document.getElementById('result'),rt=document.getElementById('rt'),rp=document.getElementById('rp');rt.textContent='PARVEZ AI is creating…';rp.textContent='Preparing your '+type.toLowerCase()+' demo result.';setTimeout(()=>{rt.textContent=type+' demo ready ✨';rp.textContent='Sample result generated locally. Connect a real AI API for actual generation.'},1000)}
+function generate(){ generateAIResponse(document.querySelector('textarea').value); }
 function copyP(v){if(navigator.clipboard)navigator.clipboard.writeText(v);alert('Prompt copied!')}
 function reply(){let v=document.getElementById('chat').value.trim();document.getElementById('reply').textContent=v?'Assistant demo: I can turn “'+v+'” into a prompt or workflow. Connect an AI backend for live answers.':'Enter a question or creation idea first.'}
 function openLogin(){document.getElementById('login').classList.add('show')}function closeLogin(){document.getElementById('login').classList.remove('show')}
