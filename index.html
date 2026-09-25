@@ -82,17 +82,26 @@ function legal(n){event.preventDefault();alert(n+' — add final jurisdiction-sp
 </script>
 <script>
 async function generateAIResponse(promptText) {
-  const apiKey = "AQ.Ab8RN6L23k4NDisJcv0S7WRmVTpWgX9YfH3Oi9PqFL3zPkJYuw";
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+    const res = await fetch("/api/generate", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        prompt: promptText
+      })
     });
+
     const data = await res.json();
-    alert(data.candidates[0].content.parts[0].text);
+
+    if (!res.ok) {
+      throw new Error(data.error || "API request failed");
+    }
+
+    alert(data.text);
   } catch (error) {
-    alert("API Error: Key sahi nahi hai ya network issue hai.");
+    alert("API Error: " + error.message);
   }
 }
 </script>
